@@ -60,9 +60,9 @@ for idx=1:numFits % model fits per iteration
                 'mu_0', mu_prior ) ;
                          
             if isempty(priorWeightPttrn)
-                mu_prior = make_WSBM_prior(Model,jdx) ;
+                mu_prior = wsbm_make_prior(Model,jdx) ;
             else
-                mu_prior = make_WSBM_prior(Model,priorWeightPttrn(jdx));
+                mu_prior = wsbm_make_prior(Model,priorWeightPttrn(jdx));
             end 
        end
            
@@ -74,5 +74,5 @@ for idx=1:numFits % model fits per iteration
 
 end %iterating over number of model fits
 
-centralModel = central_model( tempModelStruct , priorMu) ;
+centralModel = wsbm_central_model( tempModelStruct , priorMu) ;
 allModels = tempModelStruct ;

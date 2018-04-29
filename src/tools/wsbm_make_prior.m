@@ -34,15 +34,14 @@ if (weight_label < weights_others)
     return
 end
 
-%loop through the best_model.para.mu 
-for i = 1:length(mu),
+for i = 1:length(mu)
     [~,pos] = max(mu(:,i)) ; 
     priorMat(pos,i) = weight_label ;
 end
 
-%lets alos make the harsh prior
+%lets also make the harsh prior
 harshPriorMat = zeros( k , length(mu)) ;
-for i = 1:length(mu),
+for i = 1:length(mu)
     [~,pos] = max(mu(:,i)) ; 
     harshPriorMat(pos,i) = 1 ;
 end

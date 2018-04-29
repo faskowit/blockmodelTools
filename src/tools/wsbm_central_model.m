@@ -25,8 +25,8 @@ for idx=1:numModels
     
         % for each model in the stuct, get harsh mu, which we will take to be the 
         % finte communty strucutre
-        [ ~ , mu1 ] = make_WSBM_prior(modelsStruct(idx).Model) ;
-        [ ~ , mu2 ] = make_WSBM_prior(modelsStruct(jdx).Model) ;
+        [ ~ , mu1 ] = wsbm_make_prior(modelsStruct(idx).Model) ;
+        [ ~ , mu2 ] = wsbm_make_prior(modelsStruct(jdx).Model) ;
 
         % use negative varation of information so we can maximize
         % it later, and then sum across one dimension 
@@ -62,7 +62,7 @@ else
         for idx=1:numModels 
 
             % hash prior again
-            [ ~ , mu ] = make_WSBM_prior(modelsStruct(idx).Model) ;
+            [ ~ , mu ] = wsbm_make_prior(modelsStruct(idx).Model) ;
             viToPrior(idx,1) = -varInfo(mu,priorMu) ;
 
         end

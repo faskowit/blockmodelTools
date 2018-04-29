@@ -26,9 +26,9 @@ for idx=1:length(numTrialPttrn)
         'mu_0', mu_prior ) ;
 
     if isempty(priorWeightPttrn)
-        mu_prior = make_WSBM_prior(tmpModel,idx) ;
+        mu_prior = wsbm_make_prior(tmpModel,idx) ;
     else
-        mu_prior = make_WSBM_prior(tmpModel,priorWeightPttrn(idx));
+        mu_prior = wsbm_make_prior(tmpModel,priorWeightPttrn(idx));
     end
 
 end
