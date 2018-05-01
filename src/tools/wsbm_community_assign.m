@@ -1,9 +1,10 @@
-function labs = wsbm_community_assign(muLabels)
+function labs = wsbm_community_assign(mu)
 %% make community assign from muLabels
 
 % if wsbm struct provided, get mu labels out of it
-if isstruct(muLabels) 
-   muLabels = muLabels.Para.mu;
+if isstruct(mu) 
+   mu = mu.Para.mu;
 end
 
-[labs,~] = find(muLabels') ;
+[~,labs] = max(mu,[],1) ;
+labs = labs' ;
