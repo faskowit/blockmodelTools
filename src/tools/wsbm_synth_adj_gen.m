@@ -19,6 +19,7 @@ theta_e_model = wsbmModel.Para.theta_e ;
 [~,tmp] = wsbm_make_prior(wsbmModel) ;
 groupS_model = sum(tmp,2) ;
 
+% func from wsbm orig package
 edgeList = generateEdges(...
     weightDist_model, edgeDist_model, r_struct_model, ...
     theta_w_model, theta_e_model, groupS_model) ;
