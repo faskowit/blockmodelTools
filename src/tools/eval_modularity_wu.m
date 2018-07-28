@@ -12,12 +12,13 @@ end
 CIJ = weight_conversion(CIJ,'autofix');
 
 num_coms = length(unique(ca));
-tot_sum = sum(sum(CIJ)) ;
+tot_sum = sum(sum(CIJ)) ./ 2 ;
 
 % initialize output vector
 Qvec = zeros([num_coms 1]) ;
 
 comMat = get_block_mat(CIJ,ca);
+comMat(~~eye(size(comMat))) = comMat(~~eye(size(comMat))) ./ 2 ;
 
 for idx=1:num_coms
    

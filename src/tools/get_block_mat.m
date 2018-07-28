@@ -1,4 +1,4 @@
-function [weiBM,avgWeiBM,binBM,avgBinBM,sizesMat] = get_block_mat_fast(CIJ,ca)
+function [weiBM,avgWeiBM,binBM,avgBinBM,sizesMat] = get_block_mat(CIJ,ca)
 % given an adjacency matrix + community affiliations, return a block matrix
 %
 % inputs: 
@@ -47,7 +47,7 @@ Bcounts = C*(W>0)*C' ;
 weiBM = B ;
 % for the on the diagonal, we should not double count connections
 % edit-> user should do this outside func
-weiBM(~~eye(nBlocks)) = weiBM(~~eye(nBlocks)) ./ 2 ;
+% weiBM(~~eye(nBlocks)) = weiBM(~~eye(nBlocks)) ./ 2 ;
 
 % avg weight block matrix
 avgWeiBM = B ;
