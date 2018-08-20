@@ -1,5 +1,5 @@
 function [ a , aFull ] = make_square(M)
-% make triu + diag outta vector
+% make square out of triu + diag vector 
 
 b = length(M) ;
 s = sqrt(2 * b + 0.25) - 0.5 ;

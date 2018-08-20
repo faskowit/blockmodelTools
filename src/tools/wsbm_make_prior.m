@@ -1,13 +1,25 @@
 function [ prior , harshPrior ] = wsbm_make_prior(iMu,wieghtMore)
-% takes in a WSBM model or mu mat and ouputs a prior mat based of the mu_0
-% of the WSBM model provided, and a harsh prior with just the 
-% 'winners' of the mu_0 mat
+% takes in a wsbm model or mu mat and ouputs a prior mat based of the mu_0
+% of the wsbm model provided, and a harsh prior with just the 
+% 'winners' of the iMu mat
 %
-% input mu mat should be dimension: (num communities) x (num nodes)
+% INPUTS:
+%           iMu:    matrix of dim (num communities) x (num nodes),
+%                   recording the community prob. for each node 
+%           weightMore: if you'd like to make a prior where the winnder is
+%                       weighted X times more than other weights. X is this
+%                       variable
+%
+% OUTPUTS:
+%           prior:  prior for wsbm, dim (num communities) x (num nodes)
+%           harshPrior: prior with only 1's and 0's
+% 
 
 if nargin < 2
     wieghtMore = 0 ; 
 end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % if inputMu is a struct, extract relevant variables
 if isstruct(iMu)

@@ -1,9 +1,18 @@
-function [ motifMat ] = wsbm_offDiag_motif(iMat)
-% function to get community motifs
+function [ motifMat ] = wsbm_offDiag_motif(blockMat)
+% function to get community motifs, assortative, core-periphery, and
+% dissassotative, as in https://www.nature.com/articles/s41467-017-02681-z
+%
+% INPUTS:
+%       blockMat:   matrix of average within- and between- community
+%                   connectivity
+%
+% OUPPUTS:
+%       motifMat:   matrix of motif for each off-diagonal community
+%                   interaction, 1=assort, 2=disassort, 3=core-periph
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-k = size(iMat,1) ;
+k = size(blockMat,1) ;
 motifMat = zeros([k k]) ;
         
 for idx = 1:k    
@@ -15,11 +24,11 @@ for idx = 1:k
             continue
         end
                 
-        minAssort = min(iMat(idx,idx),iMat(jdx,jdx)) ;
-        maxAssort = max(iMat(idx,idx),iMat(jdx,jdx)) ;
+        minAssort = min(blockMat(idx,idx),blockMat(jdx,jdx)) ;
+        maxAssort = max(blockMat(idx,idx),blockMat(jdx,jdx)) ;
         
-        subMat = [ iMat(idx,idx) iMat(idx,jdx) ;    % when unrolling
-                   iMat(jdx,idx) iMat(jdx,jdx) ] ;  % 1 3 
+        subMat = [ blockMat(idx,idx) blockMat(idx,jdx) ;    % when unrolling
+                   blockMat(jdx,idx) blockMat(jdx,jdx) ] ;  % 1 3 
                                                     % 2 4
         
         % position 2

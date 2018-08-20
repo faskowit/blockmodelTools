@@ -7,7 +7,7 @@ function [ centralModel , allModels ] = wsbm_central_fit( adjMat, rStruct , mode
 % by when computing the central mode. this will be useful if you want to
 % keep the central model 'near' a prior 
 
-% edit... numFits can be a vector, specifying num fits at each level of vec
+% deprecated: use wsbm_fit_n_times and then just find central model
 
 if nargin < 4
     disp('need more args')

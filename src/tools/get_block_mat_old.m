@@ -1,4 +1,4 @@
-function [weiBM,avgWeiBM,binBM,avgBinBM,stdWeiBM,sizesMat] = get_block_mat(CIJ,ca,excludeNaN)
+function [weiBM,avgWeiBM,binBM,avgBinBM,stdWeiBM,sizesMat] = get_block_mat_old(CIJ,ca,excludeNaN)
 % given an adjacency matrix + community affiliations, return a block matrix
 %
 % inputs: 

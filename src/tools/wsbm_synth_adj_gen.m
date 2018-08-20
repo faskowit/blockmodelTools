@@ -2,24 +2,37 @@ function [genMat,noNaGenMat] = wsbm_synth_adj_gen(wsbmModel,sym)
 % generate a synthetic mat given the parameters of a already realized wsbm
 % model fit
 %
-% function [Edge_List,True_Model] = generateEdges(W_truth,E_truth,R,theta_w,theta_e,group_Size,degree_Para)
+% INPUTS:
+%       wsbmModel:  the blockmodel struct
+%       sym:        symmetricl; yes(default)=1, no=0
+%
+% OUTPUTS:
+%       genMat:     generated data
+%       noNaGenMat: generated data no NaNs
+%
+% uses the WSBM function generateEdges
+% function [Edge_List,True_Model] = ...
+%               generateEdges(W_truth,E_truth,R,theta_w,theta_e,...
+%                               group_Size,degree_Para)
 
 if nargin < 2
     sym = 1 ;
 end 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% dist params
 weightDist_model = wsbmModel.W_Distr ;
 edgeDist_model = wsbmModel.E_Distr ;
+
+% num communities
 r_struct_model = wsbmModel.R_Struct.R ;
 
+% thetas
 theta_w_model = wsbmModel.Para.theta_w ;
-% tmp = triu(theta_w_model,1) ;
-% theta_w_model = theta_w_model + tmp ;
-
 theta_e_model = wsbmModel.Para.theta_e ;
-% tmp = triu(theta_w_model,1) ;
-% theta_w_model = theta_w_model + tmp ;
 
+% getting the community sizes
 [~,tmp] = wsbm_make_prior(wsbmModel) ;
 groupS_model = sum(tmp,2) ;
 

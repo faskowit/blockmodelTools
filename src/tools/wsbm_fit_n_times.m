@@ -1,7 +1,15 @@
 function [ allModels ] = wsbm_fit_n_times( adjMat, rStruct , modelInputs , numFits , numCores)
 % will fit wsbm specificed number iterations
-% and will return 'most central' based on variation of information between
-% community labels
+% 
+% INPUTS:
+%           adjMat:     input matrix
+%           rStruct:    num communites or wsbm rstruct
+%           modelInputs:    cell array of model inputs
+%           numFits:    how many fits
+%           numCores:   num cores to submit to parfor
+%
+% OUTPUTS:
+%           allModels:  all the models fit
 % 
 % user has the option to also provide prior labels to additionally multiply
 % by when computing the central mode. this will be useful if you want to

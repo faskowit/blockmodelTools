@@ -29,9 +29,6 @@ parallel_pool = gcp ;
 
 parfor idx = 1:loopIters
 
-    
-    
-    
     % Fit
     [~, tempSores, tempModels] = wsbmLooper_2(inputData, ...
         modelInputs, ...

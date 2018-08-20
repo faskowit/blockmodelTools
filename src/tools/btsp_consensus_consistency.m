@@ -1,4 +1,5 @@
 function [ Cinterval , Cdist ] = btsp_consensus_consistency(allPartitions,nBoot)
+% bootstrap consensus consistency measrue
 
 if ~exist('nBoot','var') || isempty(nBoot)
    nBoot = 1000 ; 
