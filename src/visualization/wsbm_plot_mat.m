@@ -78,8 +78,6 @@ switch lower(style)
         end
 end
 
-% opengl('software');
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 mu = imu'; % change k x N -> N x k
