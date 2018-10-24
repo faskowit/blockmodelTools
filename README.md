@@ -1,7 +1,7 @@
-blockmodeltools
+blockmodeltools (beta)
 ==============================
 
-A short description of your project
+Toolbox of functions designed to aid in the application of the [wsbm](http://tuvalu.santafe.edu/~aaronc/wsbm/). Currently a work in progress and subject to change. 
 
 Project Organization
 --------------------
