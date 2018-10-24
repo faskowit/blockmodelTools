@@ -103,3 +103,5 @@ bin/
 # exclude external models from source control
 /src/external/
 *.m~
+*test*
+src/compile/
