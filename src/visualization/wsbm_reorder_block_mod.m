@@ -5,4 +5,4 @@ function [newOrderInd] = wsbm_reorder_block_mod(iMat,ca)
 
 % reorder_mod on the block matrix
 newOrderInd = reorder_mod(avgblMat,unique(ca)) ;
-newOrderInd = flipud(newOrderInd) ;
+%newOrderInd = flipud(newOrderInd) ;
