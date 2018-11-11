@@ -1,10 +1,23 @@
-function [] = fitWSBMcompile(inputMatPath,inputOpts,outputPathStr)
+function [] = fitWSBMcompile(inputMatPath,inputOpts,outputPathStr,ouputStr,numReps)
 
-if nargin < 3
-   error('need at least three args') 
+if nargin < 4
+   error('need at least four args') 
 end
 
+if nargin < 5
+   numReps = 1 ;
+end
+
+if ischar(numReps)
+    numReps = str2double(numReps) ;
+end
+
+disp(['num reps: ' int2str(numReps) ])
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% shuffle random seed
+rng('shuffle');
 
 % load the data
 loadStruct = load(inputMatPath) ;
@@ -42,13 +55,24 @@ wsbmModelInputs = { RSTRUCT_OR_K, ...
     'verbosity', 1};
 disp(wsbmModelInputs)
 
-[~,Model] = wsbm(iMat, ...
-    wsbmModelInputs{:}) ;
+for idx = 1:numReps
 
-% save the model
-outStr = [ outputPathStr '/wsbmModelOut.mat' ] ;
-save(outStr, 'Model','-v7.3')
+    fprintf('\n')
+    fprintf('\n')
+    disp([ 'running model ' int2str(idx) ' of ' int2str(numReps) ])
+    fprintf('\n')
+    fprintf('\n')
+    
+    [~,Model] = wsbm(iMat, ...
+        wsbmModelInputs{:}) ;
 
+    % save the model
+    outStr = [ outputPathStr '/' ouputStr '_' ...
+        sprintf('%04d',idx) '.mat' ] ;
+    
+    save(outStr, 'Model','-v7.3')
+    clear('Model')
+end
 
 
 

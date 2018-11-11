@@ -1,9 +1,21 @@
+function [] = config_fitWSBM(K,outputPath,w_dist,e_dist)
+% function to save mats that will be use for WSBM params
+
+if nargin < 3
+    w_dist = 'exp' ; 
+end
+
+if nargin < 4
+    e_dist = 'poisson' ; 
+end
+
 %% SETUP GLOBAL VARS
 
-RSTRUCT_OR_K = 10 ;
-W_DIST = 'exp' ; 
-E_DIST = 'poisson' ;
-WSBM_NUM_TRIAL = 20 ;
+RSTRUCT_OR_K = K
+W_DIST = w_dist
+E_DIST = e_dist
+
+WSBM_NUM_TRIAL = 10 ;
 WSBM_ALPHA = 0.5 ;
 WSBM_MAIN_ITER = 500 ;
 WSBM_MU_ITER = 250 ;
@@ -11,7 +23,7 @@ WSBM_MAINTOL = 0.01 ;
 WSBM_MUTOL = 0.01 ;
 
 % set the opts
-% wsbmModelInputs = { RSTRUCT, ... 
+% wsbmModelInputs = { RSTRUCT_OR_K, ... 
 %     'W_Distr', W_DIST, ...
 %     'E_Distr', E_DIST, ...
 %     'numTrials',WSBM_NUM_TRIAL,...
@@ -22,5 +34,8 @@ WSBM_MUTOL = 0.01 ;
 %     'muTol', WSBM_MUTOL ,...
 %     'verbosity', 0};
 
-outStr = '' ;
-save([ outStr 'vars.mat'],'*') ;
+outStr = [ outputPath '/wsbmVars_k' sprintf('%02d',K) '_' ...
+    w_dist '_' e_dist ] ;
+save([ outStr '.mat'],'*') ;
+
+
