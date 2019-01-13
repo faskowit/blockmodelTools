@@ -8,7 +8,7 @@ function [ motifMat ] = wsbm_offDiag_motif(blockMat)
 %
 % OUPPUTS:
 %       motifMat:   matrix of motif for each off-diagonal community
-%                   interaction, 1=assort, 2=disassort, 3=core-periph
+%                   interaction, 1=assort, 2=core, 3=per, 4=dissort
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -24,29 +24,43 @@ for idx = 1:k
             continue
         end
                 
-        minAssort = min(blockMat(idx,idx),blockMat(jdx,jdx)) ;
-        maxAssort = max(blockMat(idx,idx),blockMat(jdx,jdx)) ;
+        minWithinCom = min(blockMat(idx,idx),blockMat(jdx,jdx)) ;
+        maxWithinCom = max(blockMat(idx,idx),blockMat(jdx,jdx)) ;
         
         subMat = [ blockMat(idx,idx) blockMat(idx,jdx) ;    % when unrolling
                    blockMat(jdx,idx) blockMat(jdx,jdx) ] ;  % 1 3 
                                                     % 2 4
         
         % position 2
-        if minAssort > subMat(2)
+        if minWithinCom > subMat(2)
             motifMat(jdx,idx) = 1 ;
-        elseif subMat(2) > maxAssort
-            motifMat(jdx,idx) = 3 ;
+        elseif subMat(2) > maxWithinCom
+            motifMat(jdx,idx) = 4 ;
         else
-            motifMat(jdx,idx) = 2 ;
+            tmpDiff = diff([minWithinCom subMat(2) maxWithinCom]) ;
+            if tmpDiff(1) < tmpDiff(2)
+                % periphery because closer to smaller value
+                motifMat(idx,jdx) = 3 ;
+            else
+                % core because closder to larger value
+                motifMat(idx,jdx) = 2 ;
+            end
         end
         
         % position 3
-        if minAssort > subMat(3)
+        if minWithinCom > subMat(3)
             motifMat(idx,jdx) = 1 ;
-        elseif subMat(3) > maxAssort
-            motifMat(idx,jdx) = 3 ;
+        elseif subMat(3) > maxWithinCom
+            motifMat(idx,jdx) = 4 ;
         else
-            motifMat(idx,jdx) = 2 ;
+            tmpDiff = diff([minWithinCom subMat(3) maxWithinCom]) ;
+            if tmpDiff(1) < tmpDiff(2)
+                % periphery because closer to smaller value
+                motifMat(idx,jdx) = 3 ;
+            else
+                % core because closder to larger value
+                motifMat(idx,jdx) = 2 ;
+            end
         end
                              
     end  
