@@ -30,7 +30,10 @@ blockSizes = histcounts(sort(ca));
 
 sizesMat = bsxfun(@times,...
     (bsxfun(@times,ones(nBlocks),blockSizes)),...
-    blockSizes');
+    (blockSizes)');
+
+% % assume we ignore self connections
+sizesMat(~~eye(nBlocks)) = sizesMat(~~eye(nBlocks)) - blockSizes' ;
 
 W = CIJ ;
 
