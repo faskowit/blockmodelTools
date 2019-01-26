@@ -39,7 +39,7 @@ for idx = 1:k
         
         % on diagonal
         if jdx == idx
-            odMat = add_blockblock(cij,ca,jdx,idx,odMat) ;
+            odMat = add_blockblock(cij,ca,jdx,idx) + odMat ;
             continue
         end
                 
@@ -55,31 +55,31 @@ for idx = 1:k
         % position 2 comparison
         if minWithinCom > subMat(2) % assort
             motifM(jdx,idx) = 1 ;
-            aMat = add_blockblock(cij,ca,jdx,idx,aMat) ;
+            aMat = add_blockblock(cij,ca,jdx,idx) + aMat;
         elseif subMat(2) > maxWithinCom % dissort
             motifM(jdx,idx) = 4 ;
-            dMat = add_blockblock(cij,ca,jdx,idx,dMat) ;
+            dMat = add_blockblock(cij,ca,jdx,idx) + dMat ;
         else
             tmpDiff = diff([minWithinCom subMat(2) maxWithinCom]) ;
             if tmpDiff(1) < tmpDiff(2)
                 % periphery because closer to smaller value
                 motifM(jdx,idx) = 3 ;
-                pMat = add_blockblock(cij,ca,jdx,idx,pMat) ;
+                pMat = add_blockblock(cij,ca,jdx,idx) + pMat ;
             else
                 % core because closder to larger value
                 motifM(jdx,idx) = 2 ;
-                cMat = add_blockblock(cij,ca,jdx,idx,cMat) ;
+                cMat = add_blockblock(cij,ca,jdx,idx) + cMat ;
             end
         end
                              
     end  
 end
 
-function retMat = add_blockblock(dat,coms,com1,com2,mat)
+function retMat = add_blockblock(dat,coms,com1,com2)
     tmp = dat(coms==com1,coms==com2) ;
-    tmp2 = zeros(size(mat)) ;
-    tmp2(coms==com1,coms==com2) = tmp ;
-    retMat = mat + tmp2 ;
+    retMat = zeros(size(dat)) ;
+    retMat(coms==com1,coms==com2) = tmp ;
+%     retMat = mat + tmp2 ;
 end
 
 end % end func 
