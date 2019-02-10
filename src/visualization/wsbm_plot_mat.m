@@ -1,4 +1,4 @@
-function [ new_mu_order ] = wsbm_plot_mat(Raw_Data,Labels,reorder,style)
+function [ new_mu_order, breaks ] = wsbm_plot_mat(Raw_Data,Labels,reorder,style)
 % plot blockmodel, but permute labels based on block density
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
