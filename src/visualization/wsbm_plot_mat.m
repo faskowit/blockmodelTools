@@ -47,6 +47,10 @@ if ~exist('reorder','var') || isempty(reorder)
     reorderFunc = @(x,y)(unique(y)) ; 
 elseif strcmpi(reorder,'mod')
     reorderFunc = @wsbm_reorder_block_mod ;
+elseif isa(reorder,'function_handle')
+    reorderFunc = reorder ;
+else
+    error('cannot determine what reorder var passed in is')
 end
 
 if ~exist('style','var') || isempty(style)
