@@ -1,9 +1,10 @@
-function [weiBM,avgWeiBM,binBM,avgBinBM,sizesMat] = get_block_mat(CIJ,ca)
+function [weiBM,avgWeiBM,binBM,avgBinBM,sizesMat] = get_block_mat(cij,ca,noNan)
 % given an adjacency matrix + community affiliations, return a block matrix
 %
 % inputs: 
-%           CIJ:        adjacency matrix
+%           cij:        adjacency matrix
 %           ca:         community affiliation vector
+%           noNan:      do not count nan edges when getting size of blocks
 %
 %           NOTE: this function will treat NaNs as zeros
 %
@@ -22,6 +23,10 @@ if ~iscolumn(ca)
    ca = ca'; 
 end
 
+if nargin < 3
+   noNan = 0 ; 
+end
+
 % number coms
 nBlocks = length(unique(ca));
 
@@ -35,7 +40,7 @@ sizesMat = bsxfun(@times,...
 % % assume we ignore self connections
 sizesMat(~~eye(nBlocks)) = sizesMat(~~eye(nBlocks)) - blockSizes' ;
 
-W = CIJ ;
+W = cij ;
 
 % get rid of nans
 W(isnan(W)) = 0 ;
@@ -46,6 +51,11 @@ C = C' ;
 B = C*W*C' ;
 Bcounts = C*(W>0)*C' ;
 
+if noNan == 1
+   nanCounts = C*isnan(cij)*C'; 
+   sizesMat = sizesMat - nanCounts ;
+end
+
 % weight block matrix
 weiBM = B ;
 % for the on the diagonal, we should not double count connections
@@ -53,8 +63,7 @@ weiBM = B ;
 % weiBM(~~eye(nBlocks)) = weiBM(~~eye(nBlocks)) ./ 2 ;
 
 % avg weight block matrix
-avgWeiBM = B ;
-avgWeiBM = avgWeiBM ./ sizesMat ;
+avgWeiBM = B ./ sizesMat ;
 
 % weight block matrix
 binBM = Bcounts ;
@@ -63,5 +72,4 @@ binBM = Bcounts ;
 % binBM(~~eye(nBlocks)) = binBM(~~eye(nBlocks)) ./ 2 ;
 
 % avg weight block matrix
-avgBinBM = Bcounts ;
-avgBinBM = avgBinBM ./ sizesMat ;
+avgBinBM = Bcounts ./ sizesMat ;
