@@ -1,4 +1,4 @@
-function [ motifM, aMat, cMat, pMat, dMat, odMat ] = wsbm_comm_motif(cij,ca)
+function [ motifM, aMat, cMat, pMat, dMat, odMat ] = wsbm_comm_motif(cij,ca,nullModel)
 % function to get community motifs, assortative, core-periphery, and
 % dissassotative, as in https://www.nature.com/articles/s41467-017-02681-z
 %
@@ -19,6 +19,10 @@ function [ motifM, aMat, cMat, pMat, dMat, odMat ] = wsbm_comm_motif(cij,ca)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+if nargin < 3
+    nullModel = 0 ;
+end
+
 % make sure there are no na's
 cij(isnan(cij)) = 0 ;
 
@@ -33,6 +37,13 @@ cMat = zeros([n n]);
 pMat = zeros([n n]);
 dMat = zeros([n n]);
 odMat = zeros([n n]) ;
+
+% if we want null com motifs, randomize avgBlMat here
+if nullModel == 1
+    randp1 = randperm(k) ;
+    randp2 = randperm(k) ;
+    avgBlMat = avgBlMat(randp1,randp2) ;
+end
 
 for idx = 1:k    
     for jdx = 1:k
