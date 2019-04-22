@@ -1,4 +1,6 @@
 function [] = fitWSBMcompile(inputMatPath,inputOpts,outputPathStr,ouputStr,numReps)
+% this is the function to compile, if you would like to compile and run WSBM
+% fitting on a supercomputing grid. Check out the compile_call.txt
 
 if nargin < 4
    error('need at least four args') 
